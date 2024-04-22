@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
@@ -40,8 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    getAllUserDetails();
     super.initState();
+    getAllUserDetails();
   }
 
   void getAllUserDetails() async {
@@ -60,8 +61,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _deleteFormDialog(BuildContext context, int userId) {
+    var localContext = context;
     showDialog(
-      context: context,
+      context: localContext,
       builder: (param) {
         return AlertDialog(
           title: const Text(
@@ -71,13 +73,12 @@ class _MyHomePageState extends State<MyHomePage> {
           actions: [
             TextButton(
               style: TextButton.styleFrom(
-                primary: Colors.white, // foreground
                 backgroundColor: Colors.red,
               ),
               onPressed: () async {
                 var result = await _userService.deleteUser(userId);
                 if (result != null) {
-                  Navigator.pop(context);
+                  Navigator.pop(localContext);
                   getAllUserDetails();
                   _showSuccessSnackBar('Detalhes do usuário excluídos com sucesso');
                 }
@@ -86,11 +87,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             TextButton(
               style: TextButton.styleFrom(
-                primary: Colors.white, // foreground
                 backgroundColor: Colors.teal,
               ),
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pop(localContext);
               },
               child: const Text('Fechar'),
             ),
@@ -99,6 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
+
 
   @override
   Widget build(BuildContext context) {

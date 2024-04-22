@@ -94,8 +94,8 @@ class _EditUserState extends State<EditUser> {
                 children: [
                   TextButton(
                       style: TextButton.styleFrom(
-                          primary: Colors.white,
-                          backgroundColor: Colors.teal,
+                          backgroundColor: Colors.white,  // Substituição feita aqui
+                          primary: Colors.teal,
                           textStyle: const TextStyle(fontSize: 15)),
                       onPressed: () async {
                         setState(() {
@@ -108,29 +108,27 @@ class _EditUserState extends State<EditUser> {
                           _userDescriptionController.text.isEmpty
                               ? _validateDescription = true
                               : _validateDescription = false;
-
                         });
-                        if (_validateName == false &&
-                            _validateContact == false &&
-                            _validateDescription == false) {
-                          // print("Good Data Can Save");
+                        if (!_validateName && !_validateContact && !_validateDescription) {
                           var user = User();
-                          user.id=widget.user.id;
+                          user.id = widget.user.id;
                           user.name = _userNameController.text;
                           user.contact = _userContactController.text;
                           user.description = _userDescriptionController.text;
-                          var result=await _userService.UpdateUser(user);
-                          Navigator.pop(context,result);
+                          var result = await _userService.UpdateUser(user);
+                          Navigator.pop(context, result);
                         }
                       },
-                      child: const Text('Atualização')),
+                      child: const Text('Atualização')
+                  ),
+
                   const SizedBox(
                     width: 10.0,
                   ),
                   TextButton(
                       style: TextButton.styleFrom(
-                          primary: Colors.white,
-                          backgroundColor: Colors.red,
+                          backgroundColor: Colors.white,
+                          primary: Colors.red,
                           textStyle: const TextStyle(fontSize: 15)),
                       onPressed: () {
                         _userNameController.text = '';
